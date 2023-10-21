@@ -1,0 +1,29 @@
+
+plugins {
+	id 'application'
+}
+
+application {
+	mainClass = 'com.kncept.lur.LurSwingExplorer'
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+	implementation(project(":lur-library"))
+}
+
+java {
+	targetCompatibility = JavaVersion.VERSION_1_8
+	sourceCompatibility = JavaVersion.VERSION_1_8
+}
+
+test {
+	useJUnitPlatform()
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
+}

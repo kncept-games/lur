@@ -1,0 +1,27 @@
+
+plugins {
+	id 'java-library'
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+}
+
+java {
+	targetCompatibility = JavaVersion.VERSION_1_7
+	sourceCompatibility = JavaVersion.VERSION_1_7
+//	toolchain {
+//		languageVersion.set(JavaLanguageVersion.of(8))
+//	}
+}
+
+test {
+	useJUnitPlatform()
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
+}

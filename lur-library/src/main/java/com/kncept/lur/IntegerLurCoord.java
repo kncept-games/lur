@@ -1,19 +1,25 @@
 package com.kncept.lur;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
-public class DiscreteCoordinate {
+public class IntegerLurCoord {
     private final int l,u,r;
 
-    public DiscreteCoordinate(int l, int u, int r) {
+    public IntegerLurCoord(int l, int u, int r) {
         this.l = l;
         this.u = u;
         this.r = r;
     }
 
-    public DiscreteCoordinate normalize() {
+    public boolean isNormalized() {
+        return l >= 0 && u >= 0 && r >= 0 && l == 0 || u == 0 || r == 0;
+    }
+
+    public IntegerLurCoord normalize() {
         // if all are positive, and at least one offset is zero, this _is_ normalized
-        if (l >= 0 && u >= 0 && r >= 0 && l == 0 || u == 0 || r == 0) return this;
+        if (isNormalized()) return this;
 
         int l = this.l;
         int u = this.u;
@@ -40,29 +46,40 @@ public class DiscreteCoordinate {
         l -= common;
         u -= common;
         r -= common;
-        return new DiscreteCoordinate(l, u, r);
+        return new IntegerLurCoord(l, u, r);
     }
 
-    public DiscreteCoordinate addL(int delta) {
-        return new DiscreteCoordinate(l + delta, u, r);
+    public IntegerLurCoord addL(int delta) {
+        return new IntegerLurCoord(l + delta, u, r);
     }
-    public DiscreteCoordinate addU(int delta) {
-        return new DiscreteCoordinate(l, u + delta, r);
+    public IntegerLurCoord addU(int delta) {
+        return new IntegerLurCoord(l, u + delta, r);
     }
-    public DiscreteCoordinate addR(int delta) {
-        return new DiscreteCoordinate(l, u, r + delta);
+    public IntegerLurCoord addR(int delta) {
+        return new IntegerLurCoord(l, u, r + delta);
+    }
+
+    public List<IntegerLurCoord> encircle(int radius) {
+    // build up the 6 sides
+
+        return Collections.emptyList();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DiscreteCoordinate that = (DiscreteCoordinate) o;
+        IntegerLurCoord that = (IntegerLurCoord) o;
         return l == that.l && u == that.u && r == that.r;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(l, u, r);
+    }
+
+    @Override
+    public String toString() {
+        return "(" + l + "," + u + "," + r + ")";
     }
 }
