@@ -23,7 +23,7 @@ public class LurSwingExplorer {
 
     public LurSwingExplorer() {
         // set currentExample to an instance to just straight in
-        currentExample = new SimplePaint();
+//        currentExample = new SimplePaint();
 
         frame = new JFrame("Lur Explorer");//creating instance of JFrame
 
