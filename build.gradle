@@ -1,0 +1,41 @@
+
+plugins {
+	id 'java-library'
+//	id 'java'
+}
+
+group = 'com.kncept.lur'
+version = '0.0.1'
+
+wrapper {
+	distributionType = Wrapper.DistributionType.BIN
+	gradleVersion = '8.4'
+}
+
+repositories {
+//	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+//	testImplementation(platform('org.junit:junit-bom:5.10.0'))
+//	testImplementation("org.junit.jupiter:junit-jupiter")
+
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+java {
+	targetCompatibility = JavaVersion.VERSION_1_8
+	sourceCompatibility = JavaVersion.VERSION_1_8
+//	toolchain {
+//		languageVersion.set(JavaLanguageVersion.of(8))
+//	}
+}
+
+test {
+	useJUnitPlatform()
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
+}
