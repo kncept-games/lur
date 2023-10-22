@@ -36,16 +36,7 @@ public class HexUtils2D {
         radiiUp += (radiiRight/2);
 
         IntegerLurCoord from = new IntegerLurCoord(0, radiiUp, radiiRight).minimise();
-        IntegerLurCoord to =  meanderTo(from, point, radius);
-
-        System.out.println("meandered from " + from + " to " + to);
-
-        //first work out L/R component (since it affects
-//        float xRadiusesAcross = point.x / (rootThree * radius);
-
-        // an identity function: U = -L -R
-
-        return to;
+        return meanderTo(from, point, radius);
     }
 
     /*

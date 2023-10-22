@@ -23,26 +23,18 @@ public class SimpleSelect implements LurExample {
         return "Simple example for drawing LUR as a circle or variable radius";
     }
 
-    private IntegerLurCoord selected = null;
+    private IntegerLurCoord selected = new IntegerLurCoord(0,0,0);
     @Override
     public JPanel panel() {
         JPanel panel = new JPanel();
-
-        IntegerLurCoord origin = new IntegerLurCoord(0, 0, 0);
-        List<IntegerLurCoord> coords = new ArrayList<>();
-        coords.add(origin);
-        for(int i = 1; i< 10; i++) { // 5
-            coords.addAll(origin.hexMoveRing(i));
-        }
-
         SimpleHexRenderer renderer = new SimpleHexRenderer();
-        renderer.setCells(coords);
-        renderer.setRadius(30);
+        renderer.setCells(new IntegerLurCoord(0, 0, 0).hexesWithinRadius(15f));
         renderer.setRadius(10);
+        renderer.setSelected(selected);
         renderer.setOnHexClicked(new Consumer<IntegerLurCoord>() {
             @Override
             public void accept(IntegerLurCoord coord) {
-                if (selected == coord) selected = null;
+                if (selected.equals(coord)) selected = new IntegerLurCoord(0,0,0);
                 else selected = coord;
                 renderer.setSelected(selected);
                 renderer.repaint();

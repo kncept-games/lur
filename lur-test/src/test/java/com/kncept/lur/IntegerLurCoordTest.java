@@ -36,7 +36,9 @@ public class IntegerLurCoordTest {
         IntegerLurCoord lur2 = new IntegerLurCoord(0, -3, 5);
         Assertions.assertNotEquals(lur2, lur2.minimise());
         Assertions.assertFalse(lur2.isMinimalForm());
-        Assertions.assertNotEquals(new IntegerLurCoord(3, 0, 8), lur2.minimise());
+
+        Assertions.assertNotEquals(new IntegerLurCoord(3, 11, 8), lur2.minimise());
+        Assertions.assertNotEquals(new IntegerLurCoord(-1, 0, 0), lur2.minimise());
     }
 
     @Test

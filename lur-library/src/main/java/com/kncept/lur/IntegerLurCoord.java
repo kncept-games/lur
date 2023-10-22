@@ -1,9 +1,8 @@
 package com.kncept.lur;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import com.kncept.lur.util.IntegerPoint2D;
+
+import java.util.*;
 
 public class IntegerLurCoord {
     private final int l,u,r;
@@ -91,6 +90,10 @@ public class IntegerLurCoord {
         return new IntegerLurCoord(scale * l, scale * u, scale * r);
     }
 
+    public float distanceSq(IntegerLurCoord other) {
+        return HexUtils2D.calculateCentralOffset(this, 0.5f).distanceSq(HexUtils2D.calculateCentralOffset(other, 0.5f));
+    }
+
     public List<IntegerLurCoord> hexMoveRing(int radius) {
         if (radius < 0) throw new RuntimeException("-ve Radius not valid");
         if (radius == 0) return Collections.singletonList(this);
@@ -109,6 +112,32 @@ public class IntegerLurCoord {
             }
         }
         return ring;
+    }
+
+    public List<IntegerLurCoord> hexesWithinRadius(float radius) {
+        if (radius <= 0) throw new RuntimeException("Invalid Radius");
+
+        List<IntegerLurCoord> area = new ArrayList<>();
+        area.add(this);
+        int currentRadius = (int)radius;
+        float distanceSq = radius * radius;
+        for(int i = 1; i <= radius; i++)
+            area.addAll(hexMoveRing(i));
+
+        boolean lastRingAdded = true;
+        while (lastRingAdded) {
+            lastRingAdded = false;
+            currentRadius++;
+            Iterator<IntegerLurCoord> candidates = hexMoveRing(currentRadius).iterator();
+            while (candidates.hasNext()) {
+                IntegerLurCoord next = candidates.next();
+                if (distanceSq > next.distanceSq(this)) {
+                    area.add(next);
+                    lastRingAdded = true;
+                }
+            }
+        }
+        return area;
     }
 
 
