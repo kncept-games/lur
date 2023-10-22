@@ -1,0 +1,39 @@
+
+name: CI
+
+on:
+  push:
+  workflow_dispatch: 
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+        # server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        # settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+    - name: Test with Gradle
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: test
+
+    - name: Attach test results
+      uses: actions/upload-artifact@v3
+      if: ${{ !cancelled()}}
+      with:
+        name: test-results
+        path: lur-test/build/test-results/test/
+        if-no-files-found: error
