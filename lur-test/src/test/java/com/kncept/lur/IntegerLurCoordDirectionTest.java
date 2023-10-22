@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IntegerLurCoordDirectionTest {
 
-
     @ParameterizedTest
     @EnumSource(IntegerLurCoordDirection.class)
     public void allDirectionsAreUnitLur(IntegerLurCoordDirection direction) {

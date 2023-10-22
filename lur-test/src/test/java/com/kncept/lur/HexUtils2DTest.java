@@ -2,31 +2,41 @@ package com.kncept.lur;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.kncept.lur.util.IntegerPoint2D;
 import org.junit.jupiter.api.Test;
 
 import com.kncept.lur.util.FloatPoint2D;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class HexUtils2DTest {
     private final float delta = 0.001f; //flo
 
-    @Test
-    void calculateCentralOffset() {
-        FloatPoint2D offset = HexUtils2D.calculateCentralOffset(new IntegerLurCoord(0, 0, 0), 100);
-        assertEquals(0, offset.x, delta);
-        assertEquals(0, offset.y, delta);
+    @ParameterizedTest
+    @MethodSource("matchedCoordinates")
+    void pointWithRadiusToLurMapping(PointToLurMap mapping) {
+        float radius = 100;
+        assertEquals(mapping.point, HexUtils2D.calculateCentralOffset(mapping.lur, radius).toClosestDiscretePoint());
+        assertEquals(mapping.lur, HexUtils2D.calculateLurFromXY(mapping.point, radius));
+    }
 
-        // vertical only offset is pretty simple.
-        offset = HexUtils2D.calculateCentralOffset(new IntegerLurCoord(0, 1, 0), 100);
-        assertEquals(0, offset.x, delta);
-        assertEquals(200, offset.y, delta);
+    public static PointToLurMap[] matchedCoordinates() {
+        float radius = 100;
+        return new PointToLurMap[] {
+                new PointToLurMap(new IntegerPoint2D(0,0), new IntegerLurCoord(0,0,0)),
+                new PointToLurMap(new IntegerPoint2D(0, 200), new IntegerLurCoord(0,1,0)),
+                new PointToLurMap(new IntegerPoint2D(-520, 300), new IntegerLurCoord(3,3,0)),
+                new PointToLurMap(new IntegerPoint2D(173,-300), new IntegerLurCoord(1,0,2)),
+        };
+    }
 
+    private static class PointToLurMap {
+        private final IntegerPoint2D point;
+        private final IntegerLurCoord lur;
 
-        offset = HexUtils2D.calculateCentralOffset(new IntegerLurCoord(3, 3, 0), 100);
-        assertEquals(-519.615234375, offset.x, delta); // -300 * root 3
-        assertEquals(300, offset.y, delta);
-
-        offset = HexUtils2D.calculateCentralOffset(new IntegerLurCoord(1, 0, 2), 100);
-        assertEquals(173.205078125, offset.x, delta); // 100 * root 3
-        assertEquals(-300, offset.y, delta);
+        public PointToLurMap(IntegerPoint2D point, IntegerLurCoord lur) {
+            this.point = point;
+            this.lur = lur;
+        }
     }
 }

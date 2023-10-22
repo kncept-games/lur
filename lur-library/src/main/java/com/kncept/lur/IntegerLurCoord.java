@@ -51,10 +51,10 @@ public class IntegerLurCoord {
     }
 
     public boolean isMinimalForm() {
-        return l >= 0 && u >= 0 && r >= 0 && l == 0 || u == 0 || r == 0;
+        return l >= 0 && u >= 0 && r >= 0 && (l == 0 || u == 0 || r == 0);
     }
 
-    public IntegerLurCoord toMinimalForm() {
+    public IntegerLurCoord minimise() {
         // if all are positive, and at least one offset is zero, this _is_ normalized
         if (isMinimalForm()) return this;
 
@@ -62,24 +62,8 @@ public class IntegerLurCoord {
         int u = this.u;
         int r = this.r;
 
-        // get rid of any -ve terms
-        while (l < 0) {
-            l++;
-            u--;
-            r--;
-        }
-        while(u < 0) {
-            l--;
-            u++;
-            r--;
-        }
-        while (r < 0) {
-            l--;
-            u--;
-            r++;
-        }
-
         int common = Math.min(Math.min(l, u), r);
+
         l -= common;
         u -= common;
         r -= common;

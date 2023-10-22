@@ -8,6 +8,12 @@ import java.awt.*;
 
 public class CircularHexRenderer {
 
+    private Color color = Color.gray;
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     public void paint(
             Graphics g,
             Point origin,
@@ -16,7 +22,7 @@ public class CircularHexRenderer {
     ) {
 
         FloatPoint2D cellOrigin = HexUtils2D.calculateCentralOffset(lur, radius).negateY();
-        g.setColor(Color.gray);
+        g.setColor(color);
         g.fillOval(
                 (int)(cellOrigin.x - radius + origin.x),
                 (int)(cellOrigin.y - radius + origin.y),

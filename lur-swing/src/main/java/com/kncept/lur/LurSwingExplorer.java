@@ -2,6 +2,7 @@ package com.kncept.lur;
 
 import com.kncept.lur.example.HexRingPaint;
 import com.kncept.lur.example.SimplePaint;
+import com.kncept.lur.example.SimpleSelect;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -102,7 +103,8 @@ public class LurSwingExplorer {
     private static List<LurExample> examples() {
         return new ArrayList<>(Arrays.asList(
                 new SimplePaint(),
-                new HexRingPaint()
+                new HexRingPaint(),
+                new SimpleSelect()
         ));
     }
 }
