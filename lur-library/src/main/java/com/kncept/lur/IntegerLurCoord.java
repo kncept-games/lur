@@ -1,5 +1,6 @@
 package com.kncept.lur;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -13,13 +14,49 @@ public class IntegerLurCoord {
         this.r = r;
     }
 
-    public boolean isNormalized() {
+    public int getL() {
+        return l;
+    }
+
+    public int getU() {
+        return u;
+    }
+
+    public int getR() {
+        return r;
+    }
+
+    public boolean isUnitLur() {
+        int zeroCount = 0;
+//        int oneCount = 0; // simplifies out
+        int otherCount = 0;
+        switch (l) {
+            case 0: zeroCount++; break;
+            case 1: break;
+            default: otherCount++;
+        }
+        switch (u) {
+            case 0: zeroCount++; break;
+            case 1: break;
+            default: otherCount++;
+        }
+        switch (r) {
+            case 0: zeroCount++; break;
+            case 1: break;
+            default: otherCount++;
+        }
+        return
+                otherCount == 0 &&
+                (zeroCount == 1 || zeroCount == 2);
+    }
+
+    public boolean isMinimalForm() {
         return l >= 0 && u >= 0 && r >= 0 && l == 0 || u == 0 || r == 0;
     }
 
-    public IntegerLurCoord normalize() {
+    public IntegerLurCoord toMinimalForm() {
         // if all are positive, and at least one offset is zero, this _is_ normalized
-        if (isNormalized()) return this;
+        if (isMinimalForm()) return this;
 
         int l = this.l;
         int u = this.u;
@@ -59,11 +96,37 @@ public class IntegerLurCoord {
         return new IntegerLurCoord(l, u, r + delta);
     }
 
-    public List<IntegerLurCoord> encircle(int radius) {
-    // build up the 6 sides
-
-        return Collections.emptyList();
+    public IntegerLurCoord add(IntegerLurCoord coord) {
+        return new IntegerLurCoord(l + coord.l, u + coord.u, r + coord.r);
     }
+    public IntegerLurCoord subtract(IntegerLurCoord coord) {
+        return new IntegerLurCoord(l - coord.l, u - coord.u, r - coord.r);
+    }
+
+    public IntegerLurCoord multiply(int scale) {
+        return new IntegerLurCoord(scale * l, scale * u, scale * r);
+    }
+
+    public List<IntegerLurCoord> hexMoveRing(int radius) {
+        if (radius < 0) throw new RuntimeException("-ve Radius not valid");
+        if (radius == 0) return Collections.singletonList(this);
+
+        List<IntegerLurCoord> ring = new ArrayList<>(6*radius);
+
+        IntegerLurCoordDirection direction = IntegerLurCoordDirection.U;
+        for(int i = 0; i < 6; i++) {
+            IntegerLurCoord spar = add(direction.getDirection().multiply(radius));
+            ring.add(spar);
+            IntegerLurCoordDirection antiWalkDirection = direction.anticlockwise();
+            direction = direction.clockwise();
+            for(int j = 1; j < radius; j++) {
+                spar = spar.subtract(antiWalkDirection.getDirection());
+                ring.add(spar);
+            }
+        }
+        return ring;
+    }
+
 
     @Override
     public boolean equals(Object o) {

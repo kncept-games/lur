@@ -1,8 +1,10 @@
 package com.kncept.lur;
 
+import com.kncept.lur.example.HexRingPaint;
 import com.kncept.lur.example.SimplePaint;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.*;
 import java.awt.*;
@@ -23,9 +25,10 @@ public class LurSwingExplorer {
 
     public LurSwingExplorer() {
         // set currentExample to an instance to just straight in
-//        currentExample = new SimplePaint();
+//       currentExample = new HexRingPaint();
 
         frame = new JFrame("Lur Explorer");//creating instance of JFrame
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         if(currentExample == null) {
             currentPanel = new JPanel();
@@ -35,25 +38,13 @@ public class LurSwingExplorer {
         } else {
             currentPanel = currentExample.panel();
         }
-        frame.getContentPane().add(currentPanel, BorderLayout.CENTER);
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.addWindowListener(new WindowAdapter() {
-//            @Override
-//            public void windowClosed(WindowEvent e) {
-//                System.exit(0);
-//            }
-//            @Override
-//            public void windowClosing(WindowEvent e) {
-//                f.dispose();
-//            }
-//        });
+        frame.getContentPane().add(currentPanel, BorderLayout.CENTER);        
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         frame.setSize(
-                Math.min(screenSize.width, 640),
-                Math.min(screenSize.height, 480)
+                Math.min(screenSize.width, 800),
+                Math.min(screenSize.height, 600)
         );
 
         int x = (int) ((screenSize.getWidth() - frame.getWidth()) / 2);
@@ -109,8 +100,9 @@ public class LurSwingExplorer {
     }
 
     private static List<LurExample> examples() {
-        List<LurExample> examples = new ArrayList<>();
-        examples.add(new SimplePaint());
-        return examples;
+        return new ArrayList<>(Arrays.asList(
+                new SimplePaint(),
+                new HexRingPaint()
+        ));
     }
 }

@@ -12,10 +12,15 @@ import com.kncept.lur.util.FloatPoint2D;
  */
 public class HexUtils2D {
 
-//    private final double sqrt3 = Math.sqrt(3d);
+    private static final float rootThree = (float)(Math.sqrt(3d));
 
-    public static FloatPoint2D calculateCentralOffset(IntegerLurCoord lur) {
-        return new FloatPoint2D(0f, 0f);
+    public static FloatPoint2D calculateCentralOffset(
+        IntegerLurCoord lur,
+        float radius
+    ) {
+        float x = (lur.getR() - lur.getL()) * rootThree * radius;
+        float y = (lur.getU() * 2 * radius) - ((lur.getL() + lur.getR()) * radius);
+        return new FloatPoint2D(x, y);
     }
 
 

@@ -32,7 +32,7 @@ public class SimpleHexRenderer extends JPanel {
         super.paint(g);
 
         Dimension size = getSize();
-        System.out.println("shr size is " + size.width + "," + size.height);
+//        System.out.println("shr size is " + size.width + "," + size.height);
         Point origin = new Point(size.width / 2, size.height/2);
 
         Iterator<IntegerLurCoord> iterator = cells.iterator();

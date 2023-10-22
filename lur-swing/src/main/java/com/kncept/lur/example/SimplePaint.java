@@ -28,9 +28,11 @@ public class SimplePaint implements LurExample {
         JPanel panel = new JPanel();
 
         List<IntegerLurCoord> coords = new ArrayList<>();
-        IntegerLurCoord lur = new IntegerLurCoord(0, 0, 0);
-        coords.add(lur);
-        coords.addAll(lur.encircle(1));
+        coords.add(new IntegerLurCoord(0, 0, 0));
+        coords.add(new IntegerLurCoord(1, 0, 0));
+        coords.add(new IntegerLurCoord(2, 0, 0));
+        coords.add(new IntegerLurCoord(0, 1, 0));
+        coords.add(new IntegerLurCoord(0, 0, 1));
 
         SimpleHexRenderer renderer = new SimpleHexRenderer();
         renderer.setCells(coords);

@@ -15,7 +15,7 @@ public class CircularHexRenderer {
             float radius
     ) {
 
-        FloatPoint2D cellOrigin = HexUtils2D.calculateCentralOffset(lur);
+        FloatPoint2D cellOrigin = HexUtils2D.calculateCentralOffset(lur, radius).negateY();
         g.setColor(Color.gray);
         g.fillOval(
                 (int)(cellOrigin.x - radius + origin.x),
@@ -23,8 +23,5 @@ public class CircularHexRenderer {
                 (int)(2 * radius),
                 (int)(2 * radius)
         );
-
-        System.out.println(lur + "->" + cellOrigin.x + "," + cellOrigin.y);
-        System.out.println("off " + origin.x + "," + origin.y + " rad" + radius);
     }
 }

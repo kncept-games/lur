@@ -9,6 +9,16 @@ public class FloatPoint2D {
         this.y = y;
     }
 
+    public FloatPoint2D negate() {
+        return new FloatPoint2D(-x, -y);
+    }
+    public FloatPoint2D negateY() {
+        return new FloatPoint2D(x, -y);
+    }
+    public FloatPoint2D negateX() {
+        return new FloatPoint2D(-x, y);
+    }
+
     public IntegerPoint2D toClosestDiscretePoint() {
         return new IntegerPoint2D(Math.round(x), Math.round(y));
     }
