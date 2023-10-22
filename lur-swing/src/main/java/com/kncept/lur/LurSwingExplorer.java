@@ -1,5 +1,6 @@
 package com.kncept.lur;
 
+import com.kncept.lur.example.CirclePaint;
 import com.kncept.lur.example.HexRingPaint;
 import com.kncept.lur.example.SimplePaint;
 import com.kncept.lur.example.SimpleSelect;
@@ -104,6 +105,7 @@ public class LurSwingExplorer {
         return new ArrayList<>(Arrays.asList(
                 new SimplePaint(),
                 new HexRingPaint(),
+                new CirclePaint(),
                 new SimpleSelect()
         ));
     }
