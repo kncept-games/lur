@@ -2,3 +2,8 @@
 .gradle
 build
 **/build
+.vscode
+
+gradle.properties
+secring.gpg
+

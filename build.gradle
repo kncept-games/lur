@@ -1,6 +1,20 @@
 
+plugins {
+	id "io.github.gradle-nexus.publish-plugin" version "1.3.0"
+}
+
 group = 'com.kncept.lur'
-version = '0.0.1'
+version = calcversion()
+def String calcversion() {
+	String vers = "0.0.0-SNAPSHOT"
+	String grn = System.getenv("GITHUB_REF_NAME")
+	if (grn != null && !grn.trim().equals("")) {
+		if (grn.startsWith("v")) {
+			vers = grn.substring(1);
+		}
+	}
+	return vers
+}
 
 wrapper {
 	distributionType = Wrapper.DistributionType.BIN

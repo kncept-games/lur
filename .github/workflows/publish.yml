@@ -29,4 +29,9 @@ jobs:
       with:
         arguments: jar
 
-        
+    - name: Publish
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: publish
+
+      
