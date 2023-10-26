@@ -55,10 +55,20 @@ def String getCheckedOutGitCommitHash() {
 	return refHead.text.trim()
 }
 
+task captureCurrentGitHash {
+	doLast {
+		def resourcesFolder = "$projectDir/src/generated/resources/com/kncept/ksuid"
+		def file = new File(resourcesFolder, 'current.hash')
+		if (!file.getParentFile().exists()) file.getParentFile().mkdirs() // ensure directories exist
+		file.createNewFile()
+		file.text = getCheckedOutGitCommitHash()
+	}
+}
+compileJava.dependsOn captureCurrentGitHash
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId = 'lur'
             from components.java
 
             pom {
@@ -95,11 +105,10 @@ publishing {
             // url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
             url = "https://oss.sonatype.org/service/local/staging1/deploy/maven2/"
             credentials {
-                // println("credentials username - " + project.ossrhUsername)
                 username = project.ossrhUsername
                 password = project.ossrhPassword
             }
-            }
+        }
     }
 }
 

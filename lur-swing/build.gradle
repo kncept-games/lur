@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-	implementation(project(":lur-library"))
+	implementation(project(":lur-coords"))
 }
 
 java {
