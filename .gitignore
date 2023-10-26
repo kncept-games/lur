@@ -6,4 +6,4 @@ build
 
 gradle.properties
 secring.gpg
-
+lur-coords/src/generated/

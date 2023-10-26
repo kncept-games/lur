@@ -55,7 +55,7 @@ Java 22 	66.0
 # Reelaseing to OSSRH
 Yeah, old ossrh. And the multitude of touchy problems when publishing to it.
 
-`GITHUB_REF_NAME=v0.0.1 ./gradlew clean publish` and do a clicky-release
+`clear && ./gradlew clean && GITHUB_REF_NAME=v0.0.1 ./gradlew  publish --info | tee output.log` and do a clicky-release
 or
 `GITHUB_REF_NAME=v0.0.1 ./gradlew publishToSonatype closeSonatypeStagingRepository`
 ?
