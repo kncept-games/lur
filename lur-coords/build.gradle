@@ -1,8 +1,17 @@
 
 plugins {
 	id 'java-library'
-	id 'maven-publish'
     id 'signing'
+
+	// https://github.com/nebula-plugins/nebula-publishing-plugin
+	// id("com.netflix.nebula.oss-publishing") version "3.3.0"
+	id("com.netflix.nebula.maven-publish") version "20.3.0"
+
+	id("com.netflix.nebula.source-jar") version "20.3.0"
+	id("com.netflix.nebula.javadoc-jar") version "20.3.0"
+
+
+	id("com.netflix.nebula.publish-verification") version "20.3.0"
 }
 
 repositories {
@@ -16,8 +25,8 @@ dependencies {
 java {
 	targetCompatibility = JavaVersion.VERSION_1_7
 	sourceCompatibility = JavaVersion.VERSION_1_7
-    withJavadocJar()
-    withSourcesJar()
+    // withJavadocJar()
+    // withSourcesJar()
 }
 
 jar {
@@ -68,8 +77,7 @@ compileJava.dependsOn captureCurrentGitHash
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
-            from components.java
+        nebula(MavenPublication) {
 
             pom {
 				name = 'Kncept LUR'
@@ -119,7 +127,7 @@ signing {
     //     project.findProperty("signing.keyId"),
     //     "../" + project.findProperty("signing.secretKeyRingFile"),
     //     project.findProperty("signing.password"))
-    sign publishing.publications.mavenJava
+    sign publishing.publications.nebula
 }
 tasks.withType(Sign) {
     onlyIf("sign if gradle.properties exists") { new File(rootDir, "gradle.properties").exists() }
