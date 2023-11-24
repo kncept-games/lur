@@ -29,6 +29,15 @@ jobs:
       with:
         arguments: jar
 
+    - name: Init gradle.properties
+      run: echo ${GRADLE_PROPERTIES} > gradle.properties
+      env:
+        GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
+    - name: Init secring.gpg
+      run: echo ${SECRING_GPG} | base64 --decode > secring.gpg
+      env:
+        SECRING_GPG: ${{ secrets.SECRING_GPG }}
+
     - name: Publish
       uses: gradle/gradle-build-action@v2
       with:
