@@ -1,4 +1,4 @@
-package com.kncept.lur.util;
+package com.kncept.lur.point;
 
 public class FloatPoint2D {
     public final float x;

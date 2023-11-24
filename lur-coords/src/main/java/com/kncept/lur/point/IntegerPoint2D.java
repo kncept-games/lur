@@ -1,6 +1,9 @@
-package com.kncept.lur.util;
+package com.kncept.lur.point;
 
 import java.util.Objects;
+
+import static com.kncept.lur.util.SerializationUtils.intsToString;
+import static com.kncept.lur.util.SerializationUtils.stringToInts;
 
 public class IntegerPoint2D {
     public final int x;
@@ -9,6 +12,12 @@ public class IntegerPoint2D {
     public IntegerPoint2D(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+    public IntegerPoint2D(String value) {
+        int[] values = stringToInts(value);
+        if (values.length != 2) throw new IllegalArgumentException("Unable to parse point: " + value);
+        x = values[0];
+        y = values[1];
     }
 
     public int distanceSq(IntegerPoint2D other) {
@@ -28,5 +37,10 @@ public class IntegerPoint2D {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return intsToString(x,y);
     }
 }

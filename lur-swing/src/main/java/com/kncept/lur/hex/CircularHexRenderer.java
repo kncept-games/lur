@@ -2,7 +2,7 @@ package com.kncept.lur.hex;
 
 import com.kncept.lur.HexUtils2D;
 import com.kncept.lur.IntegerLurCoord;
-import com.kncept.lur.util.FloatPoint2D;
+import com.kncept.lur.point.FloatPoint2D;
 
 import java.awt.*;
 

@@ -1,10 +1,7 @@
 package com.kncept.lur;
 
-import com.kncept.lur.util.FloatPoint2D;
-import com.kncept.lur.util.IntegerPoint2D;
-
-import java.util.Arrays;
-import java.util.function.Function;
+import com.kncept.lur.point.FloatPoint2D;
+import com.kncept.lur.point.IntegerPoint2D;
 
 /**
  * This assumes that the LUR(0,0,0) Hex lies at (0,0) on the 2D Plain.

@@ -1,8 +1,9 @@
 package com.kncept.lur;
 
-import com.kncept.lur.util.IntegerPoint2D;
-
 import java.util.*;
+
+import static com.kncept.lur.util.SerializationUtils.intsToString;
+import static com.kncept.lur.util.SerializationUtils.stringToInts;
 
 public class IntegerLurCoord {
     private final int l,u,r;
@@ -11,6 +12,13 @@ public class IntegerLurCoord {
         this.l = l;
         this.u = u;
         this.r = r;
+    }
+    public IntegerLurCoord(String value) {
+        int[] values = stringToInts(value);
+        if (values.length != 3) throw new IllegalArgumentException("Unable to parse lur: " + value);
+        l = values[0];
+        u = values[1];
+        r = values[2];
     }
 
     public int getL() {
@@ -156,6 +164,6 @@ public class IntegerLurCoord {
 
     @Override
     public String toString() {
-        return "(" + l + "," + u + "," + r + ")";
+        return intsToString(l,u,r);
     }
 }

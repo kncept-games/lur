@@ -2,7 +2,7 @@ package com.kncept.lur;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.kncept.lur.util.IntegerPoint2D;
+import com.kncept.lur.point.IntegerPoint2D;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 

@@ -63,4 +63,13 @@ public class IntegerLurCoordTest {
             Assertions.assertEquals(6 * radius, hexRing.size());
         }
     }
+
+    @Test
+    public void jsonStyleSerialization() {
+        IntegerLurCoord source = new IntegerLurCoord(1,2,3);
+        String stringified = source.toString();
+        IntegerLurCoord reconstituted = new IntegerLurCoord(stringified);
+        Assertions.assertEquals(source, reconstituted);
+        Assertions.assertEquals(stringified, reconstituted.toString());
+    }
 }
